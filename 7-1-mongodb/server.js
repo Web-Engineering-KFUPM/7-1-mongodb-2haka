@@ -167,25 +167,39 @@
  * 
  */
 
-import mongoose from "mongoose";
+      import mongoose from "mongoose";
 
-// establish connection
-
-
-// define schema
-
-
-// create document
-
-
-// read document
-
-
-// update document
-
-
-// delete document
-
+      const connectionString = "mongodb+srv://khaled20o0o04_db_user:<db_password>@cluster0.xj6p29o.mongodb.net/?appName=Cluster0";
+      // establish connection
+      mongoose.connect(connectionString)
+      .then(() => console.log("Connected to MongoDB"))
+      .catch(err => console.log(err));
+      
+      // define schema
+      const studentSchema = new mongoose.Schema({
+         name: String,
+         age: Number,
+         major: String
+      });
+      
+      // create document
+      const Student = mongoose.model("Student", studentSchema);
+      const student = new Student({ name: "Ali", age: 21, major: "CS" });
+      student.save();
+      
+      // read document
+      const allStudents = await Student.find();
+      console.log(allStudents);     // should show all students
+      
+      // update document
+      const updatedStudent = await Student.updateOne({ name: "Ali" }, { age: 22 });
+      console.log(updatedStudent);    
+      
+      // delete document
+      const deletedStudent = await Student.deleteOne({ name: "Ali" });
+      console.log(deletedStudent);     
+      
+      
 
 
 
